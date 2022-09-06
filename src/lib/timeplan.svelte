@@ -11,16 +11,17 @@
     let highlightHour = true;
 
     let colorCodes = {
-        KRØ: "blue",
-        "MR1+1": "red",
-        "IT1 1": "yellow",
-        NOR: "brown",
-        FY1: "green",
-        "T22 1": "turquoise",
-        KJ1: "orange",
-        "STU+2": "grey",
-        "STU+1": "grey",
-        "KLA+1": "grey",
+        KRØ: "rgb(3, 136, 252)",
+        "MR1+1": "yellow",
+        Valgfag: "grey",
+        NOR: "purple",
+        FY1: "rgb(199, 7, 4)",
+        Språk: "green",
+        KJ1: "rgb(153, 28, 26)",
+        "STU+2": "rgb(105, 136, 209)",
+        "STU+1": "rgb(105, 136, 209)",
+        "KLA+1": "rgb(105, 136, 209)",
+        HIS: "rgb(81, 240, 118)",
     };
 
     let timeKonstant = 7.5;
@@ -61,9 +62,9 @@
                     slutt: 14.5,
                     startDisplay: "12:30",
                     sluttDisplay: "14:30",
-                    lærer: "Miriam Castillo",
+                    lærer: "",
                     klasse: "ST2A",
-                    klasseKode: "IT1 1",
+                    klasseKode: "Valgfag",
                     klasserom: "225",
                 },
                 {
@@ -101,9 +102,9 @@
                     slutt: 12,
                     startDisplay: "10:45",
                     sluttDisplay: "12:00",
-                    lærer: "Helge Potesta",
+                    lærer: "",
                     klasse: "ST2A",
-                    klasseKode: "T22 1",
+                    klasseKode: "Språk",
                     klasserom: "201",
                 },
                 {
@@ -203,9 +204,9 @@
                     slutt: 12,
                     startDisplay: "10:00",
                     sluttDisplay: "12:00",
-                    lærer: "Miriam Castillo",
+                    lærer: "",
                     klasse: "ST2A",
-                    klasseKode: "IT1 1",
+                    klasseKode: "Valgfag",
                     klasserom: "225",
                 },
                 {
@@ -254,9 +255,9 @@
                     slutt: 11.25,
                     startDisplay: "09:30",
                     sluttDisplay: "11:15",
-                    lærer: "Helge Potesta",
+                    lærer: "",
                     klasse: "ST2A",
-                    klasseKode: "T22 1",
+                    klasseKode: "Språk",
                     klasserom: "201",
                 },
                 {
@@ -366,7 +367,7 @@
     function getDayHighlight(index) {
         if (highlightDay) {
             if (index === currentDay) {
-                return "background-color:rgb(3, 252, 61);";
+                return "background-color:rgb(150, 150, 150);";
             }
             return "";
         }
@@ -570,7 +571,7 @@
         overflow: hidden;
         color: rgb(0, 0, 0);
         width: 97.5vw;
-        background-color: rgb(18, 213, 106);
+        background-color: rgb(255, 255, 255);
     }
 
     .time-marker {
