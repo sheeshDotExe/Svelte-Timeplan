@@ -11,17 +11,17 @@
     let highlightHour = true;
 
     let colorCodes = {
-        KRØ: "rgb(3, 136, 252)",
-        "MR1+1": "yellow",
-        Valgfag: "grey",
-        NOR: "purple",
-        FY1: "rgb(199, 7, 4)",
-        Språk: "green",
-        KJ1: "rgb(153, 28, 26)",
-        "STU+2": "rgb(105, 136, 209)",
-        "STU+1": "rgb(105, 136, 209)",
-        "KLA+1": "rgb(105, 136, 209)",
-        HIS: "rgb(81, 240, 118)",
+        KRØ: "#4e79a7",
+        "MR1+1": "#f28e2b",
+        Valgfag: "#e15759",
+        NOR: "#76b7b2",
+        FY1: "#59a14f",
+        Språk: "#edc948",
+        KJ1: "#b07aa1",
+        "STU+2": "#9c755f",
+        "STU+1": "#9c755f",
+        "KLA+1": "#9c755f",
+        HIS: "#ff9da7",
     };
 
     let timeKonstant = 7.5;
@@ -571,7 +571,7 @@
         overflow: hidden;
         color: rgb(0, 0, 0);
         width: 97.5vw;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(185, 181, 181);
     }
 
     .time-marker {
