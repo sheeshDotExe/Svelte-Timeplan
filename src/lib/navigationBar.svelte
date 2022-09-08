@@ -7,8 +7,28 @@
         { id: 2, link: "timeplan", name: "Timeplan", active: "" },
     ];
 
-    let isUserLoggedIn = false;
+    let isUserLoggedIn = true;
     //let children = navBarItems.childNodes;
+
+    // should run every time the site reloads
+    function checkForStatusChanges() {
+        const urlParams = document.location.href.split("/");
+        if (urlParams.includes("about")) {
+            changeActiveById(1);
+        } else if (urlParams.includes("timeplan")) {
+            changeActiveById(2);
+        }
+
+        fetch("api/checkLoginStatus")
+            .then((response) => response.json())
+            .then((data) => {
+                isUserLoggedIn = data["response"];
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
 
     function changeActive(event) {
         navBarItems.forEach((element) => {
@@ -16,6 +36,14 @@
         });
         navBarItems[event.target.id].active = "active";
     }
+    function changeActiveById(id) {
+        navBarItems.forEach((element) => {
+            element.active = "";
+        });
+        navBarItems[id].active = "active";
+    }
+
+    checkForStatusChanges();
 </script>
 
 <div>
@@ -31,6 +59,11 @@
             <a href="/accounts/logout/"
                 ><button class="right"> Log out </button></a
             >
+            <Link to="customise">
+                <button on:click={changeActive} id={3}>
+                    customise timeplan
+                </button>
+            </Link>
         {:else}
             <a href="/accounts/login/"
                 ><button class="right login"> Log in </button></a

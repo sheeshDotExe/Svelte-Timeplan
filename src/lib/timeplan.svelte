@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
     let options = [{ id: 0, value: "ST2A" }];
     let ukeOptions = [];
 
@@ -152,7 +153,7 @@
                     start: 8.5,
                     slutt: 9.5,
                     startDisplay: "08:30",
-                    sluttDisplay: "9:30",
+                    sluttDisplay: "09:30",
                     lærer: "Kristian Weibye",
                     klasse: "ST2A",
                     klasseKode: "MR1+1",
@@ -192,7 +193,7 @@
                     start: 8.5,
                     slutt: 9.5,
                     startDisplay: "08:30",
-                    sluttDisplay: "9:30",
+                    sluttDisplay: "09:30",
                     lærer: "Kristian Weibye",
                     klasse: "ST2A",
                     klasseKode: "MR1+1",
@@ -243,7 +244,7 @@
                     start: 8.5,
                     slutt: 9.4167,
                     startDisplay: "08:30",
-                    sluttDisplay: "9:25",
+                    sluttDisplay: "09:25",
                     lærer: "Line Lindberg",
                     klasse: "ST2A",
                     klasseKode: "NOR",
@@ -312,6 +313,7 @@
     }
 
     function generateTimePlan(event) {
+        setCookie("timeplanvalg", selectedKlasse, 1);
         if (textFieldValue !== "" || selectedKlasse !== "default option") {
             hideDefault();
             showTimePlanData = true;
@@ -381,6 +383,36 @@
         return "display: none;";
     }
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == " ") {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function loadCookieInfo() {
+        let val = getCookie("timeplanvalg");
+        if (val !== "") {
+            selectedKlasse = val;
+        }
+    }
+
     function initTimeVars() {
         for (let i = 0; i < 41; i++) {
             let week = ((i + 33) % 51) + 1;
@@ -418,6 +450,11 @@
         }-${secondDate.getDate()}.${secondDate.getMonth() + 1})`;
     }
     initTimeVars();
+
+    onMount(async () => {
+        loadCookieInfo();
+        generateTimePlan(null);
+    });
 </script>
 
 <div>
@@ -574,6 +611,12 @@
         background-color: rgb(185, 181, 181);
     }
 
+    .timeplan-generator {
+        font-size: 1.25vw;
+        margin: auto;
+        line-height: normal;
+    }
+
     .time-marker {
         width: 19.5vw;
         max-width: 19.5vw;
@@ -591,10 +634,11 @@
         width: 4.8vw;
         text-align: center;
         margin: auto;
+        display: flex;
     }
 
     .time-start-tid {
-        font-size: 10px;
+        font-size: 0.65vw;
         text-align: center;
         top: -1.25vh;
         left: 1px;
@@ -603,12 +647,14 @@
         height: 2vh;
         max-height: 2vh;
         position: relative;
+        display: flex;
         background-color: rgb(165, 170, 170);
         overflow: visible;
+        float: left;
     }
 
     .time-slutt-tid {
-        font-size: 10px;
+        font-size: 0.65vw;
         text-align: center;
         top: 1.25vh;
         margin-top: auto;
@@ -618,26 +664,28 @@
         height: 2vh;
         max-height: 2vh;
         position: relative;
+        display: flex;
         background-color: rgb(165, 170, 170);
         overflow: visible;
+        float: left;
     }
 
     .time-slutt-tid p {
-        margin: 0px;
+        margin: auto;
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
-        position: relative;
-        bottom: 0.75vh;
+        position: absolute;
+        bottom: 0vh;
     }
 
     .time-start-tid p {
-        margin: 0px;
+        margin: auto;
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
-        position: relative;
-        bottom: 0.75vh;
+        position: absolute;
+        bottom: 0vh;
     }
 
     .time-box {
@@ -675,14 +723,20 @@
         width: 19.5vw;
         height: 7vh;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 2.5vw;
         background-color: rgb(255, 255, 255);
         border-style: solid;
         border-width: 1px;
+        display: flex;
     }
 
     .dag-title p {
-        margin-top: 5%;
+        margin: auto;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+        position: relative;
+        bottom: 0vh;
     }
 
     .align-right {
