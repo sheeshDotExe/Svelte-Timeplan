@@ -1,5 +1,6 @@
 <script>
     import { Link } from "svelte-routing";
+    import { isUserLoggedIn } from "./store.js";
 
     let navBarItems = [
         { id: 0, link: "/", name: "Home", active: "active" },
@@ -7,7 +8,6 @@
         { id: 2, link: "timeplan", name: "Timeplan", active: "" },
     ];
 
-    let isUserLoggedIn = true;
     //let children = navBarItems.childNodes;
 
     // should run every time the site reloads
@@ -22,7 +22,7 @@
         fetch("api/checkLoginStatus")
             .then((response) => response.json())
             .then((data) => {
-                isUserLoggedIn = data["response"];
+                isUserLoggedIn.set(data["response"]);
                 console.log(data);
             })
             .catch((error) => {
@@ -55,7 +55,7 @@
                 ></Link
             >
         {/each}
-        {#if isUserLoggedIn}
+        {#if $isUserLoggedIn}
             <a href="/accounts/logout/"
                 ><button class="right"> Log out </button></a
             >

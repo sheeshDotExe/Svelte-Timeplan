@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     let options = [{ id: 0, value: "ST2A" }];
     let ukeOptions = [];
 
@@ -29,274 +29,7 @@
 
     let showTimePlanData = false;
 
-    let timeplanInfo = [
-        {
-            id: 0,
-            dag: "Mandag",
-            dato: "29.8",
-            timerInfo: [
-                {
-                    id: 0,
-                    start: 8.5,
-                    slutt: 10,
-                    startDisplay: "08:30",
-                    sluttDisplay: "10:00",
-                    lærer: "Anders Bark",
-                    klasse: "ST2A",
-                    klasseKode: "KRØ",
-                    klasserom: "225",
-                },
-                {
-                    id: 1,
-                    start: 10.5,
-                    slutt: 12,
-                    startDisplay: "10:30",
-                    sluttDisplay: "12:00",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "MR1+1",
-                    klasserom: "225",
-                },
-                {
-                    id: 2,
-                    start: 12.5,
-                    slutt: 14.5,
-                    startDisplay: "12:30",
-                    sluttDisplay: "14:30",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "Valgfag",
-                    klasserom: "225",
-                },
-                {
-                    id: 3,
-                    start: 14.75,
-                    slutt: 16,
-                    startDisplay: "14:45",
-                    sluttDisplay: "16:00",
-                    lærer: "Line Lindberg",
-                    klasse: "ST2A",
-                    klasseKode: "NOR",
-                    klasserom: "225",
-                },
-            ],
-        }, // mandag
-        {
-            id: 1,
-            dag: "Tirsdag",
-            dato: "30.8",
-            timerInfo: [
-                {
-                    id: 0,
-                    start: 8.5,
-                    slutt: 10.5,
-                    startDisplay: "08:30",
-                    sluttDisplay: "10:30",
-                    lærer: "Andrea Klubicka",
-                    klasse: "ST2A",
-                    klasseKode: "FY1",
-                    klasserom: "225",
-                },
-                {
-                    id: 1,
-                    start: 10.75,
-                    slutt: 12,
-                    startDisplay: "10:45",
-                    sluttDisplay: "12:00",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "Språk",
-                    klasserom: "201",
-                },
-                {
-                    id: 2,
-                    start: 12.5,
-                    slutt: 13.5,
-                    startDisplay: "12:30",
-                    sluttDisplay: "13:30",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "STU+2",
-                    klasserom: "225",
-                },
-                {
-                    id: 3,
-                    start: 13.5,
-                    slutt: 14.5,
-                    startDisplay: "13:30",
-                    sluttDisplay: "14:30",
-                    lærer: "Line Lindberg",
-                    klasse: "ST2A",
-                    klasseKode: "NOR",
-                    klasserom: "225",
-                },
-                {
-                    id: 4,
-                    start: 14.75,
-                    slutt: 16,
-                    startDisplay: "14:45",
-                    sluttDisplay: "16:00",
-                    lærer: "Line Lindberg",
-                    klasse: "ST2A",
-                    klasseKode: "NOR",
-                    klasserom: "225",
-                },
-            ],
-        }, //tirsdag
-        {
-            id: 2,
-            dag: "Onsdag",
-            dato: "30.8",
-            timerInfo: [
-                {
-                    id: 0,
-                    start: 8.5,
-                    slutt: 9.5,
-                    startDisplay: "08:30",
-                    sluttDisplay: "09:30",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "MR1+1",
-                    klasserom: "225",
-                },
-                {
-                    id: 1,
-                    start: 10,
-                    slutt: 12,
-                    startDisplay: "10:00",
-                    sluttDisplay: "12:00",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "KJ1",
-                    klasserom: "225",
-                },
-                {
-                    id: 2,
-                    start: 12.5,
-                    slutt: 14.5,
-                    startDisplay: "12:30",
-                    sluttDisplay: "14:30",
-                    lærer: "Andrea Klubicka",
-                    klasse: "ST2A",
-                    klasseKode: "FY1",
-                    klasserom: "225",
-                },
-            ],
-        }, //onsdag
-        {
-            id: 3,
-            dag: "Torsdag",
-            dato: "30.8",
-            timerInfo: [
-                {
-                    id: 0,
-                    start: 8.5,
-                    slutt: 9.5,
-                    startDisplay: "08:30",
-                    sluttDisplay: "09:30",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "MR1+1",
-                    klasserom: "225",
-                },
-                {
-                    id: 1,
-                    start: 10,
-                    slutt: 12,
-                    startDisplay: "10:00",
-                    sluttDisplay: "12:00",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "Valgfag",
-                    klasserom: "225",
-                },
-                {
-                    id: 2,
-                    start: 12.5,
-                    slutt: 14.25,
-                    startDisplay: "12:30",
-                    sluttDisplay: "14:15",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "KJ1",
-                    klasserom: "225",
-                },
-                {
-                    id: 3,
-                    start: 14.5,
-                    slutt: 16,
-                    startDisplay: "14:30",
-                    sluttDisplay: "16:00",
-                    lærer: "Anders Bark",
-                    klasse: "ST2A",
-                    klasseKode: "HIS",
-                    klasserom: "225",
-                },
-            ],
-        }, //torsdag
-        {
-            id: 4,
-            dag: "Fredag",
-            dato: "30.8",
-            timerInfo: [
-                {
-                    id: 0,
-                    start: 8.5,
-                    slutt: 9.4167,
-                    startDisplay: "08:30",
-                    sluttDisplay: "09:25",
-                    lærer: "Line Lindberg",
-                    klasse: "ST2A",
-                    klasseKode: "NOR",
-                    klasserom: "225",
-                },
-                {
-                    id: 1,
-                    start: 9.5,
-                    slutt: 11.25,
-                    startDisplay: "09:30",
-                    sluttDisplay: "11:15",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "Språk",
-                    klasserom: "201",
-                },
-                {
-                    id: 2,
-                    start: 11.33,
-                    slutt: 12,
-                    startDisplay: "11:20",
-                    sluttDisplay: "12:00",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "KLA+1",
-                    klasserom: "225",
-                },
-                {
-                    id: 3,
-                    start: 12.5,
-                    slutt: 14.25,
-                    startDisplay: "12:30",
-                    sluttDisplay: "14:15",
-                    lærer: "Kristian Weibye",
-                    klasse: "ST2A",
-                    klasseKode: "MR1+1",
-                    klasserom: "225",
-                },
-                {
-                    id: 4,
-                    start: 14.5,
-                    slutt: 15.5,
-                    startDisplay: "14:30",
-                    sluttDisplay: "15:30",
-                    lærer: "",
-                    klasse: "ST2A",
-                    klasseKode: "STU+1",
-                    klasserom: "225",
-                },
-            ],
-        }, //fredag
-    ];
+    $: timeplanInfo = null;
 
     function hideDefault() {
         let defaultText = document.getElementById("default-timeplan-text");
@@ -312,11 +45,25 @@
         timeplanElement.style.display = "none";
     }
 
-    function generateTimePlan(event) {
+    async function generateTimePlan(event) {
         setCookie("timeplanvalg", selectedKlasse, 1);
         if (textFieldValue !== "" || selectedKlasse !== "default option") {
+            if (textFieldValue !== "") {
+                selectedKlasse = textFieldValue;
+            }
+            await fetch(`api/getTimeplan/${selectedKlasse}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    timeplanInfo = [...JSON.parse(data["response"])["content"]];
+                    console.log(timeplanInfo);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
             hideDefault();
             showTimePlanData = true;
+            reRender();
         } else {
             showDefault();
             showTimePlanData = false;
@@ -413,6 +160,39 @@
         }
     }
 
+    function loadRefreshInfo() {
+        let val = getCookie("refresh");
+        if (val === "" || val === "True") {
+            setCookie("refresh", "False", 2);
+            location.reload();
+            return;
+        } else {
+            setCookie("refresh", "True", 2);
+        }
+    }
+
+    function updateTimeMarker() {
+        if (getHourHighlight) {
+            let timeElements = document.getElementsByClassName("time-marker");
+            //console.log(timeElements);
+            if (currentDay <= 4) {
+                timeElements[currentDay].style.top = `${
+                    ((currentTime - 8.5) / timeKonstant) * 77
+                }vh`;
+                changeCurrentTime();
+            }
+        }
+    }
+
+    function changeCurrentTime() {
+        var currentDate = new Date();
+        currentDay = currentDate.getDay() - 1;
+        currentTime =
+            currentDate.getHours() +
+            (currentDate.getMinutes() + 1) / 60 +
+            (currentDate.getSeconds() + 1) / 3600;
+    }
+
     function initTimeVars() {
         for (let i = 0; i < 41; i++) {
             let week = ((i + 33) % 51) + 1;
@@ -450,10 +230,16 @@
         }-${secondDate.getDate()}.${secondDate.getMonth() + 1})`;
     }
     initTimeVars();
+    let func = setInterval(updateTimeMarker, 10000);
 
     onMount(async () => {
         loadCookieInfo();
         generateTimePlan(null);
+    });
+
+    onDestroy(() => {
+        console.log("ok");
+        clearInterval(func);
     });
 </script>
 
@@ -618,8 +404,8 @@
     }
 
     .time-marker {
-        width: 19.5vw;
-        max-width: 19.5vw;
+        width: 19.3vw;
+        max-width: 19.3vw;
         height: 0.5vh;
         max-height: 0.5vh;
         background-color: white;

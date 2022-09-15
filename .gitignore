@@ -24,3 +24,4 @@ dist-ssr
 
 #database
 *.sqlite3
+settings.py
