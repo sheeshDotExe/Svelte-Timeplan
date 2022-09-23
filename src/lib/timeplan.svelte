@@ -388,6 +388,16 @@
         .timeplan {
             font-size: 7px;
         }
+
+        .time-start-tid,
+        .time-slutt-tid {
+            max-width: 3vw !important;
+            width: 3vw !important;
+            height: 0.5vh !important;
+            max-height: 0.5vh !important;
+            overflow: hidden !important;
+            top: 0 !important;
+        }
     }
 
     .uke-plan {

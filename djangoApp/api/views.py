@@ -66,17 +66,6 @@ def getTimeplanInfo(request, timeplan):
                                 "klasse": "ST2A",
                                 "klasseKode": "Valgfag",
                                 "klasserom": "225"
-                            },
-                            {
-                                "id": 3,
-                                "start": 14.75,
-                                "slutt": 16,
-                                "startDisplay": "14:45",
-                                "sluttDisplay": "16:00",
-                                "lærer": "Line Lindberg",
-                                "klasse": "ST2A",
-                                "klasseKode": "NOR",
-                                "klasserom": "225"
                             }
                         ]
                     },
