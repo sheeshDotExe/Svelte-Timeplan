@@ -93,6 +93,9 @@
     }
 
     function calculatePosition(start, offset) {
+        if (window.innerWidth <= 450) {
+            offset /= 2;
+        }
         let realSize = ((start - 8.5) / timeKonstant) * 77;
         console.log(`${start}: ${realSize}`);
         return `position: absolute; top: ${realSize - offset}vh;`;
@@ -433,11 +436,26 @@
     }
     @media screen and (max-width: 450px) {
         .timeplan {
-            font-size: 7px;
+            font-size: 11px;
         }
 
         .time-box {
             flex-direction: column;
+            font-size: 1.5em !important;
+            font-weight: bold;
+        }
+
+        .time-start-tid,
+        .time-slutt-tid {
+            max-height: 1vh !important;
+            height: 1vh !important;
+            max-width: 4vw !important;
+            width: 4vw !important;
+            font-size: 1em !important;
+        }
+
+        .time-slutt-tid {
+            left: 14.5vw !important;
         }
     }
 
