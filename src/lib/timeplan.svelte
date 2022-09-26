@@ -482,6 +482,7 @@
         height: 0.5vh;
         max-height: 0.5vh;
         background-color: white;
+        z-index: 9;
     }
 
     .time-info {
