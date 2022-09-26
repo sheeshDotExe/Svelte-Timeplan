@@ -23,6 +23,7 @@
         "STU+1": "#9c755f",
         "KLA+1": "#9c755f",
         HIS: "#ff9da7",
+        "STU+1-UOFFISIELL": "rgba(156, 117, 95, 0.5)",
     };
 
     let timeKonstant = 7.5;
@@ -81,6 +82,12 @@
         }
 
         return string;
+    }
+
+    function calculatePosition(start) {
+        let realSize = ((start - 8.5) / timeKonstant) * 77;
+        console.log(`${start}: ${realSize}`);
+        return `position: absolute; top: ${realSize}vh;`;
     }
 
     function getFirstDayOfWeek(d) {
@@ -330,28 +337,58 @@
                                                 true
                                             )}
                                         >
-                                            <div class="time-start-tid">
-                                                <p>{time.startDisplay}</p>
-                                            </div>
-                                            <div class="time-klasse time-info">
-                                                {time.klasse}
-                                            </div>
-                                            <div
-                                                class="time-klasseKode time-info"
-                                            >
-                                                {time.klasseKode}
-                                            </div>
-                                            <div
-                                                class="time-klasserom time-info"
-                                            >
-                                                {time.klasserom}
-                                            </div>
-                                            <div class="time-lærer time-info">
-                                                {time.lærer}
-                                            </div>
-                                            <div class="time-slutt-tid">
-                                                <p>{time.sluttDisplay}</p>
-                                            </div>
+                                            <div class="time-info" />
+                                            {#if time.klasse}
+                                                <div
+                                                    class="time-klasse time-info"
+                                                >
+                                                    {time.klasse}
+                                                </div>
+                                            {/if}
+
+                                            {#if time.klasseKode}
+                                                <div
+                                                    class="time-klasseKode time-info"
+                                                >
+                                                    {time.klasseKode}
+                                                </div>
+                                            {/if}
+
+                                            {#if time.klasserom}
+                                                <div
+                                                    class="time-klasserom time-info"
+                                                >
+                                                    {time.klasserom}
+                                                </div>
+                                            {/if}
+
+                                            {#if time.lærer}
+                                                <div
+                                                    class="time-lærer time-info"
+                                                >
+                                                    {time.lærer}
+                                                </div>
+                                            {/if}
+                                            <div class="time-info" />
+                                        </div>
+                                        <div
+                                            class="time-start-tid"
+                                            style={calculatePosition(
+                                                time.start
+                                            )}
+                                        >
+                                            <p>
+                                                {time.startDisplay}
+                                            </p>
+                                        </div>
+
+                                        <div
+                                            class="time-slutt-tid"
+                                            style={calculatePosition(
+                                                time.slutt
+                                            )}
+                                        >
+                                            <p>{time.sluttDisplay}</p>
                                         </div>
                                         {#if index2 < dag.timerInfo.length - 1}
                                             <div
@@ -407,6 +444,10 @@
         background-color: rgb(185, 181, 181);
     }
 
+    .timeplan-timer {
+        position: relative;
+    }
+
     .timeplan-generator {
         font-size: 1.25vw;
         margin: auto;
@@ -424,10 +465,8 @@
     .time-info {
         float: left;
         position: relative;
-        left: -1vw;
         max-height: 5vh;
-        max-width: 4.8vw;
-        width: 4.8vw;
+        flex: 1;
         text-align: center;
         margin: auto;
         display: flex;
@@ -435,35 +474,25 @@
 
     .time-start-tid {
         font-size: 0.65vw;
-        text-align: center;
-        top: -1.25vh;
-        left: 1px;
         max-width: 2vw;
         width: 2vw;
         height: 2vh;
         max-height: 2vh;
-        position: relative;
-        display: flex;
         background-color: rgb(165, 170, 170);
-        overflow: visible;
-        float: left;
+        display: flex;
+        justify-content: center;
     }
 
     .time-slutt-tid {
         font-size: 0.65vw;
-        text-align: center;
-        top: 1.25vh;
-        margin-top: auto;
-        right: 1px;
         max-width: 2vw;
         width: 2vw;
         height: 2vh;
         max-height: 2vh;
-        position: relative;
-        display: flex;
         background-color: rgb(165, 170, 170);
-        overflow: visible;
-        float: left;
+        display: flex;
+        justify-content: center;
+        left: 17vw;
     }
 
     .time-slutt-tid p {
@@ -495,6 +524,9 @@
         height: 10vh;
         background-color: whitesmoke;
         display: flex;
+        justify-content: center;
+        gap: 1rem;
+        overflow: visible;
     }
 
     .top-space {

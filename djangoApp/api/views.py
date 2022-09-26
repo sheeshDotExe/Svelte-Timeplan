@@ -66,6 +66,17 @@ def getTimeplanInfo(request, timeplan):
                                 "klasse": "ST2A",
                                 "klasseKode": "Valgfag",
                                 "klasserom": "225"
+                            },
+                            {
+                                "id": 3,
+                                "start": 14.75,
+                                "slutt": 15.75,
+                                "startDisplay": "14:45",
+                                "sluttDisplay": "15:45",
+                                "lærer": "",
+                                "klasse": "ST2A",
+                                "klasseKode": "STU+1",
+                                "klasserom": "225"
                             }
                         ]
                     },
@@ -269,17 +280,6 @@ def getTimeplanInfo(request, timeplan):
                                 "lærer": "Kristian Weibye",
                                 "klasse": "ST2A",
                                 "klasseKode": "MR1+1",
-                                "klasserom": "225"
-                            },
-                            {
-                                "id": 4,
-                                "start": 14.5,
-                                "slutt": 15.5,
-                                "startDisplay": "14:30",
-                                "sluttDisplay": "15:30",
-                                "lærer": "",
-                                "klasse": "ST2A",
-                                "klasseKode": "STU+1",
                                 "klasserom": "225"
                             }
                         ]
