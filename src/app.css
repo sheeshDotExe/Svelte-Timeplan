@@ -40,4 +40,5 @@ body {
   animation-name: backgroundan;
   animation-duration: 12s;
   animation-iteration-count: infinite;
+  margin: 0px;
 }
