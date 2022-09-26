@@ -76,18 +76,26 @@
         let realSize = (size / timeKonstant) * 77;
         let string;
         if (check) {
-            string = `max-height: ${realSize}vh; height: ${realSize}vh; background-color: ${colorCodes[kode]};`;
+            string = `${calculatePosition(
+                start,
+                0
+            )} max-height: ${realSize}vh; height: ${realSize}vh; background-color: ${
+                colorCodes[kode]
+            };`;
         } else {
-            string = `max-height: ${realSize}vh; height: ${realSize}vh;`;
+            string = `${calculatePosition(
+                start,
+                0
+            )} max-height: ${realSize}vh; height: ${realSize}vh;`;
         }
 
         return string;
     }
 
-    function calculatePosition(start) {
+    function calculatePosition(start, offset) {
         let realSize = ((start - 8.5) / timeKonstant) * 77;
         console.log(`${start}: ${realSize}`);
-        return `position: absolute; top: ${realSize}vh;`;
+        return `position: absolute; top: ${realSize - offset}vh;`;
     }
 
     function getFirstDayOfWeek(d) {
@@ -374,7 +382,8 @@
                                         <div
                                             class="time-start-tid"
                                             style={calculatePosition(
-                                                time.start
+                                                time.start,
+                                                1
                                             )}
                                         >
                                             <p>
@@ -385,7 +394,8 @@
                                         <div
                                             class="time-slutt-tid"
                                             style={calculatePosition(
-                                                time.slutt
+                                                time.slutt,
+                                                1
                                             )}
                                         >
                                             <p>{time.sluttDisplay}</p>
@@ -426,14 +436,8 @@
             font-size: 7px;
         }
 
-        .time-start-tid,
-        .time-slutt-tid {
-            max-width: 3vw !important;
-            width: 3vw !important;
-            height: 0.5vh !important;
-            max-height: 0.5vh !important;
-            overflow: hidden !important;
-            top: 0 !important;
+        .time-box {
+            flex-direction: column;
         }
     }
 
@@ -481,6 +485,8 @@
         background-color: rgb(165, 170, 170);
         display: flex;
         justify-content: center;
+        align-items: center;
+        z-index: 10;
     }
 
     .time-slutt-tid {
@@ -492,7 +498,9 @@
         background-color: rgb(165, 170, 170);
         display: flex;
         justify-content: center;
+        align-items: center;
         left: 17vw;
+        z-index: 10;
     }
 
     .time-slutt-tid p {
