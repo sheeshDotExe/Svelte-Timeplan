@@ -453,10 +453,6 @@
             width: 4vw !important;
             font-size: 1em !important;
         }
-
-        .time-slutt-tid {
-            left: 14.5vw !important;
-        }
     }
 
     .uke-plan {
@@ -518,7 +514,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        left: 17vw;
+        right: 0;
         z-index: 10;
     }
 
