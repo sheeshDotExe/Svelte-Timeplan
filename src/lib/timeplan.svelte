@@ -10,6 +10,8 @@
     let currentTime;
     let highlightDay = true;
     let highlightHour = true;
+    let sizeKonstant = 79;
+    let hamburgerChecked = false;
 
     let colorCodes = {
         KRØ: "#4e79a7",
@@ -56,7 +58,6 @@
                 .then((response) => response.json())
                 .then((data) => {
                     timeplanInfo = [...JSON.parse(data["response"])["content"]];
-                    console.log(timeplanInfo);
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -73,7 +74,7 @@
 
     function calculateSize(start, slutt, kode, check) {
         let size = slutt - start;
-        let realSize = (size / timeKonstant) * 77;
+        let realSize = (size / timeKonstant) * sizeKonstant;
         let string;
         if (check) {
             string = `${calculatePosition(
@@ -96,8 +97,7 @@
         if (window.innerWidth <= 450) {
             offset /= 2;
         }
-        let realSize = ((start - 8.5) / timeKonstant) * 77;
-        console.log(`${start}: ${realSize}`);
+        let realSize = ((start - 8.5) / timeKonstant) * sizeKonstant;
         return `position: absolute; top: ${realSize - offset}vh;`;
     }
 
@@ -142,7 +142,7 @@
 
     function getHourHighlight(index) {
         if (index === currentDay) {
-            let realSize = ((currentTime - 8.5) / timeKonstant) * 77;
+            let realSize = ((currentTime - 8.5) / timeKonstant) * sizeKonstant;
             return `position: absolute; top: ${realSize}vh;`;
         }
         return "display: none;";
@@ -195,7 +195,7 @@
             //console.log(timeElements);
             if (currentDay <= 4) {
                 timeElements[currentDay].style.top = `${
-                    ((currentTime - 8.5) / timeKonstant) * 77
+                    ((currentTime - 8.5) / timeKonstant) * sizeKonstant
                 }vh`;
                 changeCurrentTime();
             }
@@ -247,6 +247,19 @@
             date.getMonth() + 1
         }-${secondDate.getDate()}.${secondDate.getMonth() + 1})`;
     }
+
+    function checkboxHandler() {
+        const navbar = document.getElementsByClassName("options-input")[0];
+        const strek1 = document.getElementsByClassName("strek1")[0];
+        const strek3 = document.getElementsByClassName("strek3")[0];
+        if (hamburgerChecked) {
+            navbar.style.display = "flex";
+        } else {
+            navbar.style.display = "none";
+        }
+        console.log(hamburgerChecked);
+    }
+
     initTimeVars();
     let func = setInterval(updateTimeMarker, 10000);
 
@@ -256,64 +269,86 @@
     });
 
     onDestroy(() => {
-        console.log("ok");
         clearInterval(func);
     });
 </script>
 
 <div>
     <form class="input-form" on:submit|preventDefault={generateTimePlan}>
-        <select bind:value={selectedKlasse} name="klasse" id="klasse">
-            <option value="default option"> Velg klasse </option>
-            {#each options as item, index (item.id)}
-                <option value={item.value}>
-                    {item.value}
-                </option>
-            {/each}
-        </select>
+        <div class="main-input">
+            <select bind:value={selectedKlasse} name="klasse" id="klasse">
+                <option value="default option"> Velg klasse </option>
+                {#each options as item, index (item.id)}
+                    <option value={item.value}>
+                        {item.value}
+                    </option>
+                {/each}
+            </select>
 
-        <input
-            type="text"
-            bind:value={textFieldValue}
-            id="klasse-text-field"
-            name="klasse-text-field"
-        />
-        <input type="submit" value="Vis" />
-
-        <div class="align-right">
-            <label for="highlight-day">Highlight day</label>
-            <input
-                type="checkbox"
-                name="highlight-day"
-                bind:checked={highlightDay}
+            <select
+                name="klasse"
+                bind:value={selectedUke}
                 on:change={reRender}
-                id="highlight-day"
+                id="klasse"
+            >
+                <option value="default option"> Velg uke </option>
+                {#each ukeOptions as item, index (item.id)}
+                    <option value={item.value}>
+                        {item.value}
+                    </option>
+                {/each}
+            </select>
+
+            <input type="submit" value="Vis" />
+
+            <div class="hamburger-plass">
+                <input
+                    type="checkbox"
+                    class="hamburger-box"
+                    bind:checked={hamburgerChecked}
+                    on:change={checkboxHandler}
+                />
+                <div class="hamburger-container">
+                    <div class="streker">
+                        <div class="hamburger-strek strek1" />
+                        <div class="hamburger-strek strek2" />
+                        <div class="hamburger-strek strek3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-input">
+            <div class="align-right">
+                <label for="highlight-day">Framhev dag</label>
+                <input
+                    type="checkbox"
+                    name="highlight-day"
+                    bind:checked={highlightDay}
+                    on:change={reRender}
+                    id="highlight-day"
+                />
+            </div>
+            <div class="align-right">
+                <label for="highlight-hour">Framhev time</label>
+                <input
+                    type="checkbox"
+                    name="highlight-hour"
+                    bind:checked={highlightHour}
+                    on:change={reRender}
+                    id="highlight-hour"
+                />
+            </div>
+
+            <input
+                type="text"
+                bind:value={textFieldValue}
+                id="klasse-text-field"
+                name="klasse-text-field"
             />
         </div>
-        <div class="align-right">
-            <label for="highlight-hour">Highlight Hour</label>
-            <input
-                type="checkbox"
-                name="highlight-hour"
-                bind:checked={highlightHour}
-                on:change={reRender}
-                id="highlight-hour"
-            />
-        </div>
-        <select
-            name="klasse"
-            bind:value={selectedUke}
-            on:change={reRender}
-            id="klasse"
-        >
-            <option value="default option"> Velg uke </option>
-            {#each ukeOptions as item, index (item.id)}
-                <option value={item.value}>
-                    {item.value}
-                </option>
-            {/each}
-        </select>
     </form>
+
     <div class="timeplan-space" />
     <div class="align-center">
         <div class="timeplan">
@@ -443,6 +478,13 @@
             flex-direction: column;
             font-size: 1.5em !important;
             font-weight: bold;
+            gap: 0.1rem !important;
+        }
+
+        .time-info {
+            max-height: 2vh !important;
+            padding: 0 0 !important;
+            margin: 0.1em auto 0 auto !important;
         }
 
         .time-start-tid,
@@ -453,6 +495,125 @@
             width: 4vw !important;
             font-size: 1em !important;
         }
+
+        .input-form {
+            flex-direction: column;
+        }
+
+        .main-input {
+            display: flex;
+        }
+
+        .options-input {
+            display: none;
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+
+        .hamburger-plass {
+            display: flex !important;
+            justify-items: center;
+            align-items: center;
+            gap: 2em;
+        }
+
+        .hamburger-strek {
+            display: block !important;
+        }
+
+        .hamburger-container {
+            display: flex !important;
+            cursor: pointer;
+        }
+
+        .hamburger-box {
+            display: block !important;
+            opacity: 0;
+            z-index: 1;
+        }
+    }
+
+    .hamburger-container {
+        display: none;
+        flex-direction: column;
+        width: 2em;
+        height: 2em;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: space-between;
+        justify-content: center;
+        position: absolute;
+        gap: 0.4rem;
+        left: 0;
+    }
+
+    .streker {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.4rem;
+        position: relative;
+        width: 2em;
+        height: 2em;
+    }
+
+    .hamburger-strek {
+        background: white;
+        display: none;
+        width: 2em;
+        height: 0.3em;
+        max-height: 0.3em;
+        flex: 1;
+        border-radius: 20%;
+        transition-duration: 0.5s;
+    }
+
+    .hamburger-box {
+        position: absolute;
+        width: 2em;
+        height: 2em;
+        display: none;
+        left: 0;
+    }
+
+    .strek1,
+    .strek2,
+    .strek3 {
+        position: absolute;
+    }
+
+    .strek1 {
+        top: 0.3em;
+    }
+
+    .strek3 {
+        bottom: 0.3em;
+    }
+
+    .hamburger-box:checked + .hamburger-container .streker .strek1 {
+        top: 0.85em;
+        transform: rotate(405deg);
+    }
+    .hamburger-box:checked + .hamburger-container .streker .strek3 {
+        bottom: 0.85em;
+        transform: rotate(-405deg);
+    }
+
+    .hamburger-box:checked + .hamburger-container .streker .strek2 {
+        opacity: 0;
+    }
+    .hamburger-plass {
+        display: none;
+        width: 2em;
+        position: relative;
+        margin-left: 2em;
+    }
+    .input-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: space-around;
+        margin-left: 1vw;
+        margin-right: 1vw;
     }
 
     .uke-plan {

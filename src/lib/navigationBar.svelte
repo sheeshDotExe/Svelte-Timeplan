@@ -23,7 +23,6 @@
             .then((response) => response.json())
             .then((data) => {
                 isUserLoggedIn.set(data["response"]);
-                console.log(data);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -57,16 +56,16 @@
         {/each}
         {#if $isUserLoggedIn}
             <a href="/accounts/logout/"
-                ><button class="right"> Log out </button></a
+                ><button class="right"> Logg ut </button></a
             >
             <Link to="customise">
                 <button on:click={changeActive} id={3}>
-                    customise timeplan
+                    juster timeplan
                 </button>
             </Link>
         {:else}
             <a href="/accounts/login/"
-                ><button class="right login"> Log in </button></a
+                ><button class="right login"> Logg inn </button></a
             >
         {/if}
     </div>
@@ -74,6 +73,9 @@
 </div>
 
 <style>
+    .nav-bar {
+        z-index: 1000;
+    }
     #content-block-1 {
         top: 0;
         left: 0;
